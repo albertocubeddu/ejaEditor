@@ -112,7 +112,7 @@ if (next(web.opt) == nil) then
         <body>     
         <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.8/ace.js" type="text/javascript" charset="utf-8"></script>
-        <script src="editor.js" type="text/javascript" charset="utf-8"></script>
+        <script src="ejaEditor.js" type="text/javascript" charset="utf-8"></script>
         <script> var prova = new Editor(]]..ejaJsonEncode(final)..[[)</script>
         </body>
     </html>
