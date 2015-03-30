@@ -1,0 +1,103 @@
+web=...
+
+final = {};
+
+-- CONFIGURATION
+ext="#js#json#";
+relativePath="/opt/eja.it/var/web/zms/var/"; -- PATH
+backup=false;                                -- BACKUP (Add old- when you save the file)
+
+
+for k,v in next,ejaDirListSafe(relativePath) do
+    if(ext:match(  ( (  v:match("%.(.*)$")  ) ) ) )then
+        if (v:match("^[^old].*")) then
+            table.insert(final,v);
+        end
+    end
+end
+
+-- SAVE FILE
+if (web.opt.fileWrite and web.opt.fileWrite ~= '') then
+    if(not web.opt.fileWrite:match("%.%.")) then
+        if(ejaFileCheck(relativePath..web.opt.fileWrite)) then
+            if backup then
+                ejaFileCopy(relativePath..web.opt.fileWrite, relativePath.."old-"..web.opt.fileWrite);
+            end
+            ejaFileMove(web.postFile,relativePath..web.opt.fileWrite)
+        end
+    end
+    web.data="ok";
+end
+
+-- SAVE NEW FILE
+if (web.opt.fileWriteNew and web.opt.fileWriteNew ~= '') then
+
+    if (ejaFileCheck(relativePath..web.opt.fileWriteNew)) then
+        web.data="error_fileExist";
+    elseif (ext:match(  web.opt.fileWriteNew:match("%.(.*)$") or '!'  ) ) then
+        ejaFileMove(web.postFile,relativePath..web.opt.fileWriteNew);
+        web.data="ok";
+    else
+        web.data="error_extension";
+    end
+
+end
+
+-- READ FILE
+if (web.opt.fileRead and web.opt.fileRead ~= '') then
+    if(web.opt.fileRead:match("%.%.")) then
+        web.data="Sorry No .. in the url";
+    else 
+        web.data=ejaFileRead(relativePath..web.opt.fileRead);
+    end
+end
+
+
+-- Normal Executiox (Show webpage)
+if (next(web.opt) == nil) then 
+    web.data=[[
+    <html>
+        <head>
+            <style>
+                #editor{
+                    position: absolute; 
+                    top: 50px; 
+                    right: 0; 
+                    bottom: 0; 
+                    left: 0;
+                }
+
+                #selectFile{
+                    margin: 10px;
+                }
+
+                #btnSave{
+                    margin: 10px;
+                }
+
+                #btnIndent{
+                    margin: 10px;
+                }
+
+                .warning{
+                    background-color: yellow;
+                    margin-left: 10px;
+                }
+
+            </style>
+        </head>
+
+        <body>     
+        <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.8/ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="editor.js" type="text/javascript" charset="utf-8"></script>
+        <script> var prova = new Editor(]]..ejaJsonEncode(final)..[[)</script>
+        </body>
+    </html>
+    ]]
+end
+
+if (web.data == '') then
+    web.status="204 No Content";
+end
+
