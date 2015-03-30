@@ -1,5 +1,3 @@
--- DO NOT MODIFY THIS FILE IF YOU ARE USING THE EDITOR.
--- IF YOU MODIFY AND DO SOMETHING WRONG YOU CANNOT REUSE THE EDITOR.
 web=...
 final = {};
 -- **********************************************************************
@@ -8,29 +6,17 @@ final = {};
 ext="#js#json#eja#";
 -- relativePath="/opt/eja.it/var/web/zms/var/"; 
 relativePath=web.path;
-relativePath=relativePath:gsub("editor.eja","");
+relativePath=relativePath:gsub("ejaEditor.eja","");
 relativePath=eja.web.path..relativePath.."/";
+print(relativePath);
 
 backup=false;                                -- BACKUP (Add old- when you save the file)
-
--- **********************************************************************
--- CHECK DEPENDECY
--- **********************************************************************
-if (ejaFileCheck(relativePath.."js/jquery-1.11.2.min.js")) then
-
-end
-
-if (ejaFileCheck(relativePath.."js/jquery-1.11.2.min.js")) then
-
-end
-
-
-
 
 -- **********************************************************************
 -- START SCRIPT
 -- **********************************************************************
 for k,v in next,ejaDirListSafe(relativePath) do
+    print(v);
     if(ext:match(  ( (  v:match("%.(.*)$") or "!"  ) ) ) )then
         if (v:match("^[^old].*")) then
             table.insert(final,v);
