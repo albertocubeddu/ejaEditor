@@ -31,7 +31,7 @@ end
 -- START SCRIPT
 -- **********************************************************************
 for k,v in next,ejaDirListSafe(relativePath) do
-    if(ext:match(  ( (  v:match("%.(.*)$")  ) ) ) )then
+    if(ext:match(  ( (  v:match("%.(.*)$") or "!"  ) ) ) )then
         if (v:match("^[^old].*")) then
             table.insert(final,v);
         end
