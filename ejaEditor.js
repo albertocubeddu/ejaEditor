@@ -106,7 +106,7 @@ Editor.prototype.onBtnSaveClick = function(){
                content="File Empty";
             }
             $.ajax({
-               url: "editor.eja?fileWriteNew="+($(".insertFileName").val()),
+               url: "ejaEditor.eja?fileWriteNew="+($(".insertFileName").val()),
                data: content,
                cache: false,
                contentType: 'multipart/form-data',
@@ -128,7 +128,7 @@ Editor.prototype.onBtnSaveClick = function(){
          }
       }else{
          $.ajax({
-            url: "editor.eja?fileWrite="+self.selectFile.val(),
+            url: "ejaEditor.eja?fileWrite="+self.selectFile.val(),
             data: self.editor.getValue(),
             cache: false,
             contentType: 'multipart/form-data',
@@ -187,7 +187,7 @@ Editor.prototype.onSelectChange = function(){
 Editor.prototype.getRemote = function (url){
    var result=0;
    $.ajax({
-      url: "editor.eja?fileRead="+self.selectFile.val(),
+      url: "ejaEditor.eja?fileRead="+self.selectFile.val(),
       data: self.editor.getValue(),
       cache: false,
       async: false,
