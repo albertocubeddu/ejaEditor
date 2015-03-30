@@ -169,6 +169,11 @@ Editor.prototype.onSelectChange = function(){
                case "lua":
                   self.editor.getSession().setMode("ace/mode/lua");
                break;
+               
+               case "html":
+               case "htm":
+                  self.editor.getSession().setMode("ace/mode/html");
+               break;
          }
          
          self.editor.gotoLine(1, 1, true);

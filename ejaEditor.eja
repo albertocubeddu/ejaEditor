@@ -1,9 +1,11 @@
+--DO NOT MODIFY THIS FILE FROM THE EJAEDITOR
+
 web=...
 final = {};
 -- **********************************************************************
 -- CONFIGURATION;
 -- **********************************************************************
-ext="#js#json#eja#";
+ext="#js#json#eja#html#htm";
 -- relativePath="/opt/eja.it/var/web/zms/var/"; 
 relativePath=web.path;
 relativePath=relativePath:gsub("ejaEditor.eja","");
