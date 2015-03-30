@@ -2,9 +2,14 @@ web=...
 
 final = {};
 
--- CONFIGURATION
-ext="#js#json#";
-relativePath="/opt/eja.it/var/web/zms/var/"; -- PATH
+-- CONFIGURATION;
+ext="#js#json#eja#";
+-- relativePath="/opt/eja.it/var/web/zms/var/"; 
+relativePath=web.path;
+relativePath=relativePath:gsub("editor.eja","");
+relativePath=eja.web.path..relativePath.."/";
+print(relativePath);
+
 backup=false;                                -- BACKUP (Add old- when you save the file)
 
 
