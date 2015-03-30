@@ -4,9 +4,9 @@ For install please clone the repository in the /var/web/[directory] and call the
 localhost:35248/editor.eja if you download it in the /var/web/ path.
 
 <h1> Installation </h1>
-Go in the directory that you want to install the editor.
-git clone https://github.com/albertocubeddu/ejaEditor.git
-enter in the directory recently downloaded and type:
+Go in the directory that you want to install the editor. <br/>
+git clone https://github.com/albertocubeddu/ejaEditor.git <br/>
+enter in the directory recently downloaded and type: <br/>
 sh install.sh
 
 The editor is ready to launch.
