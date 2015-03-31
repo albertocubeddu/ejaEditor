@@ -1,3 +1,8 @@
+----------------------------------------------------§
+-- EjaEditorLib.eja                                 !
+-- Author: Alberto Cubeddu (acubeddu87@gmail.com)   !
+----------------------------------------------------§
+
 function ejaEditor(web) 
     web.headerOut['Content-Type']='text/html'
 
