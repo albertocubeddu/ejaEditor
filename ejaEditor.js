@@ -108,7 +108,7 @@ Editor.prototype.onBtnSaveClick = function(){
                content="File Empty";
             }
             $.ajax({
-               url: this.path+"?fileWriteNew="+($(".insertFileName").val()),
+               url: self.path+"?fileWriteNew="+($(".insertFileName").val()),
                data: content,
                cache: false,
                contentType: 'multipart/form-data',
@@ -130,7 +130,7 @@ Editor.prototype.onBtnSaveClick = function(){
          }
       }else{
          $.ajax({
-            url: this.path+"?fileWrite="+self.selectFile.val(),
+            url: self.path+"?fileWrite="+self.selectFile.val(),
             data: self.editor.getValue(),
             cache: false,
             contentType: 'multipart/form-data',

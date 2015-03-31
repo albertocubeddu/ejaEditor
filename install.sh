@@ -22,7 +22,3 @@ do
         *) echo invalid option;;
     esac
 done
-
-
-
-#ln -s ejaEditor/ejaEditor.eja .
