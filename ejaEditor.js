@@ -1,7 +1,8 @@
-function Editor(file){
+function Editor(file,path){
    
    this.createHtml();
    this.textLoaded = file;
+   this.path = path;
    
    this.selectFile = $("#selectFile");
    this.btnSave = $("#btnSave");
@@ -26,6 +27,7 @@ function Editor(file){
    this.onBtnIndentClick();
    this.onBtnSaveClick();
    
+   this.selectFile.change();
    
 }
 
@@ -47,7 +49,7 @@ Editor.prototype.createSelect = function(){
    
    for (i=0; i<this.textLoaded.length; i++){
       
-      if(i==0){
+      if(i==0 && this.textLoaded.length != 1){
          $("#selectFile").append("<option value=''>New File</option>");
       }
       
@@ -106,7 +108,7 @@ Editor.prototype.onBtnSaveClick = function(){
                content="File Empty";
             }
             $.ajax({
-               url: "ejaEditor.eja?fileWriteNew="+($(".insertFileName").val()),
+               url: this.path+"?fileWriteNew="+($(".insertFileName").val()),
                data: content,
                cache: false,
                contentType: 'multipart/form-data',
@@ -128,7 +130,7 @@ Editor.prototype.onBtnSaveClick = function(){
          }
       }else{
          $.ajax({
-            url: "ejaEditor.eja?fileWrite="+self.selectFile.val(),
+            url: this.path+"?fileWrite="+self.selectFile.val(),
             data: self.editor.getValue(),
             cache: false,
             contentType: 'multipart/form-data',
@@ -149,11 +151,9 @@ Editor.prototype.onSelectChange = function(){
       
       self.editor.selectAll();
       self.editor.remove();
-      
-      console.log("Text");
+
       var text = self.getRemote(this.value);
       if(text){
-         console.log("Extension");
          var ext = self.stringSplit(this.value);
          
          switch(ext){
@@ -189,21 +189,23 @@ Editor.prototype.onSelectChange = function(){
 // UTILITY JS
 ///////////////
 
-Editor.prototype.getRemote = function (url){
+Editor.prototype.getRemote = function (){
    var result=0;
-   $.ajax({
-      url: "ejaEditor.eja?fileRead="+self.selectFile.val(),
-      data: self.editor.getValue(),
-      cache: false,
-      async: false,
-      processData: false,
-      type: 'POST',
-   }).done(function(data){
-      result=data;
-   }).fail(function(){
-      result=false;
-   });
-   return result;
+   if (this.selectFile.val() != ""){
+      $.ajax({
+         url: this.path+"?fileRead="+this.selectFile.val(),
+         data: this.editor.getValue(),
+         cache: false,
+         async: false,
+         processData: false,
+         type: 'POST',
+      }).done(function(data){
+         result=data;
+      }).fail(function(){
+         result=false;
+      });
+      return result;
+   }
 }
 
 Editor.prototype.stringSplit = function(str){
