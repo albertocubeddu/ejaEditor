@@ -11,3 +11,7 @@ sh install.sh
 
 The editor is ready to launch.
 
+
+<h1> Why? </h1>
+In embedded device usually is not so easy to find a way to edit our script in a comfortable enviroment. 
+
