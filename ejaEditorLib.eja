@@ -1,5 +1,4 @@
 function ejaEditor(web) 
-
     web.headerOut['Content-Type']='text/html'
 
     final={};
@@ -81,7 +80,7 @@ function ejaEditor(web)
             web=webPage(web);
         else
             if (ejaFileCheck(relativePath:sub(1,-2))) then
-                a=web.path:gsub("/",""):gsub(".edit","");
+                a=web.path:match("[^%/]+$"):sub(1,-1):gsub(".edit","");
                 table.insert(final,a);
                 web=webPage(web);
             else
