@@ -1,3 +1,7 @@
+/*
+EjaEditor.js
+Author: Alberto Cubeddu (acubeddu87@gmail.com)
+*/
 function Editor(file,path){
    
    this.createHtml();
