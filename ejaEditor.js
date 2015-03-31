@@ -151,7 +151,7 @@ Editor.prototype.onSelectChange = function(){
       
       self.editor.selectAll();
       self.editor.remove();
-
+      
       var text = self.getRemote(this.value);
       if(text){
          var ext = self.stringSplit(this.value);
