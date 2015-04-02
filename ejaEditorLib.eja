@@ -86,7 +86,6 @@ function ejaEditor(web)
                 if(#final ~= 0) then
                     web=webPage(web);
                 else
-                    print("asd");
                     web.data="directory without file";
                 end
             
