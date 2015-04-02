@@ -3,12 +3,24 @@
 -- Author: Alberto Cubeddu (acubeddu87@gmail.com)   !
 ----------------------------------------------------§
 
-function ejaEditor(web) 
-    web.headerOut['Content-Type']='text/html'
+eja.help.editorExt = "Valid Extension {#js#json#eja#html#htm#}";
+eja.help.editorBaseUrl = "Base Url {/ejaEditor/}";
+eja.help.editorBackup = "Backup? {false}";
 
-    final={};
-    ext="#js#json#eja#html#htm";
+
+function ejaEditor(web)
+    -- CONFIGURATION FILE-- -- -- -- -- -- -- -- -- -- -- --
+    ext = eja.opt.editorExt or "#js#json#eja#html#htm#";
+    ejaEditorUrl = eja.opt.editorBaseUrl or "/ejaEditor/";
+    backup = eja.opt.editorBackup or false;      
+    runLocal = eja.opt.editorLocal or false;                      
+    -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+    oneFile = "false";
     relativePath=web.path;
+    final={};
+
+    web.headerOut['Content-Type']='text/html'
 
     if(relativePath:find("ejaEditorLib.eja")) then
         pathforJs="ejaEditorLib.eja";
@@ -19,9 +31,6 @@ function ejaEditor(web)
         relativePath=relativePath:gsub(".edit","");
         relativePath=eja.web.path..relativePath.."/";
     end
-
-
-    backup=false;                                -- BACKUP (Add old- when you save the file)
 
 
     -- **********************************************************************
@@ -87,6 +96,7 @@ function ejaEditor(web)
             if (ejaFileCheck(relativePath:sub(1,-2))) then
                 a=web.path:match("[^%/]+$"):sub(1,-1):gsub(".edit","");
                 table.insert(final,a);
+                oneFile="true";
                 web=webPage(web);
             else
                 web.data="file not found!"
@@ -98,7 +108,8 @@ end
 
 
 function webPage(web)
-    web.data=[[
+    
+    body=[[
     <html>
         <head>
             <style>
@@ -131,13 +142,31 @@ function webPage(web)
         </head>
 
         <body>     
+        ]]
+
+    -- !PUT LOCAL SCRIPT
+    if(not runLocal) then    
+        script=[[
         <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.8/ace.js" type="text/javascript" charset="utf-8"></script>
-        <script src="/ejaEditor/ejaEditor.js" type="text/javascript" charset="utf-8"></script>
-        <script> var prova = new Editor(]]..ejaJsonEncode(final)..[[,"]]..pathforJs..[[")</script>
-        </body>
-    </html>
-    ]]
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.8/ace.js" type="text/javascript" charset="utf-8"></script>
+            <script src="/ejaEditor/ejaEditor.js" type="text/javascript" charset="utf-8"></script>
+            <script> var prova = new Editor(]]..ejaJsonEncode(final)..[[,"]]..pathforJs..[[","]]..oneFile..[[")</script>
+            </body>
+        </html>
+        ]]
+    else 
+        script=[[
+        <script src="]]..ejaEditorUrl..[[ejaEditor.js"></script>
+            <script src="]]..ejaEditorUrl..[[js/jquery-1.11.2.min.js" type="text/javascript" charset="utf-8"></script>
+            <script src="]]..ejaEditorUrl..[[js/ace-src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+            <script> var prova = new Editor(]]..ejaJsonEncode(final)..[[,"]]..pathforJs..[[","]]..oneFile..[[")</script>
+            </body>
+        </html>
+        ]]
+    end
+
+    web.data=body..script
+        
     return web;
 end
 
