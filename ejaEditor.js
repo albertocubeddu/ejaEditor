@@ -32,7 +32,6 @@ function Editor(file,path){
    this.onBtnSaveClick();
    
    this.selectFile.change();
-   
 }
 
 Editor.prototype = {
@@ -44,19 +43,23 @@ Editor.prototype = {
 // CREATION
 /////////////
 
+
 Editor.prototype.createHtml = function(){
    $("body").append("<select id='selectFile'></select><button type='button' id='btnSave'>Save!</button><button type='button' id='btnIndent'>Indent!</button><div id='editor'></div><span class='warning'></span>");
 }
 
 
-Editor.prototype.createSelect = function(){       
+Editor.prototype.createSelect = function(){
    
+   //Check for a directory if it's empty
+   if(this.textLoaded.length == 0){
+      $("#selectFile").append("<option value=''>New File</option>");
+   }    
+
    for (i=0; i<this.textLoaded.length; i++){
-      
       if(i==0 && this.textLoaded.length != 1){
          $("#selectFile").append("<option value=''>New File</option>");
       }
-      
       $("#selectFile").append("<option value='"+this.textLoaded[i]+"'>"+this.textLoaded[i]+"</option>");
    } 
 }
@@ -153,6 +156,8 @@ Editor.prototype.onSelectChange = function(){
    self=this;
    this.selectFile.on("change",function(){
       
+      $(".insertFileName").remove();
+
       self.editor.selectAll();
       self.editor.remove();
       
