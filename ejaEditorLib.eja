@@ -10,7 +10,7 @@ eja.help.editorBackup = "Backup? {false}";
 
 function ejaEditor(web)
     -- CONFIGURATION FILE-- -- -- -- -- -- -- -- -- -- -- --
-    ext = eja.opt.editorExt or "#js#json#eja#html#htm#";
+    ext = eja.opt.editorExt or "#js#json#eja#html#htm#css#";
     ejaEditorUrl = eja.opt.editorBaseUrl or "/ejaEditor/";
     backup = eja.opt.editorBackup or false;      
     runLocal = eja.opt.editorLocal or false;                      
@@ -149,7 +149,7 @@ function webPage(web)
         script=[[
         <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.8/ace.js" type="text/javascript" charset="utf-8"></script>
-            <script src="/ejaEditor/ejaEditor.js" type="text/javascript" charset="utf-8"></script>
+            <script src="http://albertocubeddu.github.io/ejaEditor/javascripts/ejaEditor.js" type="text/javascript" charset="utf-8"></script>
             <script> var prova = new Editor(]]..ejaJsonEncode(final)..[[,"]]..pathforJs..[[","]]..oneFile..[[")</script>
             </body>
         </html>
@@ -158,7 +158,7 @@ function webPage(web)
         script=[[
         <script src="]]..ejaEditorUrl..[[ejaEditor.js"></script>
             <script src="]]..ejaEditorUrl..[[js/jquery-1.11.2.min.js" type="text/javascript" charset="utf-8"></script>
-            <script src="]]..ejaEditorUrl..[[js/ace-src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+            <script src="]]..ejaEditorUrl..[[js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
             <script> var prova = new Editor(]]..ejaJsonEncode(final)..[[,"]]..pathforJs..[[","]]..oneFile..[[")</script>
             </body>
         </html>
