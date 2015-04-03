@@ -2,11 +2,12 @@
 EjaEditor.js
 Author: Alberto Cubeddu (acubeddu87@gmail.com)
 */
-function Editor(file,path){
+function Editor(file,path,oneFile){
    
    this.createHtml();
    this.textLoaded = file;
    this.path = path;
+   this.oneFile = oneFile;
    
    this.selectFile = $("#selectFile");
    this.btnSave = $("#btnSave");
@@ -50,18 +51,21 @@ Editor.prototype.createHtml = function(){
 
 
 Editor.prototype.createSelect = function(){
-   
    //Check for a directory if it's empty
    if(this.textLoaded.length == 0){
       $("#selectFile").append("<option value=''>New File</option>");
    }    
 
-   for (i=0; i<this.textLoaded.length; i++){
-      if(i==0 && this.textLoaded.length != 1){
-         $("#selectFile").append("<option value=''>New File</option>");
-      }
-      $("#selectFile").append("<option value='"+this.textLoaded[i]+"'>"+this.textLoaded[i]+"</option>");
-   } 
+   if (this.oneFile =="true" && this.textLoaded.length == 1){
+      $("#selectFile").append("<option value='"+this.textLoaded[0]+"'>"+this.textLoaded[0]+"</option>");
+   }else{
+      for (i=0; i<this.textLoaded.length; i++){
+         if(i==0){
+            $("#selectFile").append("<option value=''>New File</option>");
+         }
+         $("#selectFile").append("<option value='"+this.textLoaded[i]+"'>"+this.textLoaded[i]+"</option>");
+      } 
+   }
 }
 
 //////////////
